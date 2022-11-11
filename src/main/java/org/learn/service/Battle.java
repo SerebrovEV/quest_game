@@ -3,19 +3,19 @@ package org.learn.service;
 import org.learn.model.Monster;
 import org.learn.model.Hero;
 
-import java.security.BasicPermission;
 import java.util.Random;
-import java.util.Scanner;
+
+import static java.lang.Thread.sleep;
 
 public class Battle {
     private final Random random = new Random();
-    private final Scanner scanner = new Scanner(System.in);
 
-    public Hero battle(Hero hero, Monster monster) {
+
+    public Hero battleWithoutChoice(Hero hero, Monster monster) throws InterruptedException {
 
         boolean bothAreAlive = true;
-
         while (bothAreAlive) {
+            sleep(1000);
             if (random.nextBoolean()) {
                 attackPlayer(hero, monster);
                 attackMonster(hero, monster);
@@ -29,11 +29,11 @@ public class Battle {
         }
         if (hero.getHealth() <= 0) {
             System.out.println("Игрок проиграл! Остаток здоровье монстра " + monster.getHealth());
-            return null;
-        } else {
+            System.out.println("Game Over");
+            System.exit(0);
+        }
             System.out.println("Монстр проиграл! Остаток здоровье игрока " + hero.getHealth() + ". Выпал лут " + monster.getLoot());
             return hero;
-        }
     }
 
     private int attackDamage(int damage) {
@@ -58,27 +58,16 @@ public class Battle {
             monsterDamage = attackDamage(monster.getDamage());
         }
         hero.setHealth(hero.getHealth() - monsterDamage);
-
         System.out.println("Монстр нанес " + monsterDamage + " урон(a). Остаток здоровье игрока " + hero.getHealth());
         System.out.println();
     }
 
-    private void attackPlayer(Hero hero, Monster monster) {
-        int playerDamage;
-        System.out.println("Использовать магию?");
-        if (scanner.nextInt() == 1) {
-            playerDamage = attackDamage(hero.getSpell().getDamage());
-        } else {
-            playerDamage = attackDamage(hero.getDamage() + hero.getWeapon().getDamage());
-        }
+    private void attackPlayer(HeroAttack heroAttack, Monster monster) {
+        heroAttack.heroAttackMessage();
+        int playerDamage = attackDamage(heroAttack.heroDamage());
         monster.setHealth(monster.getHealth() - playerDamage);
-
         System.out.println("Игрок нанес " + playerDamage + " урон(а). Остаток здоровье монстра " + monster.getHealth());
         System.out.println();
-    }
-
-    private boolean magicalResistance(Hero hero, Monster monster) {
-        return !hero.getSpell().getElementType().equals(monster.getImmune());
     }
 
 }

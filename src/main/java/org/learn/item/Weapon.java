@@ -1,4 +1,4 @@
-package org.learn.model;
+package org.learn.item;
 
 public class Weapon {
     private String name;

@@ -1,10 +1,11 @@
 package org.learn.service;
 
 import com.github.javafaker.Faker;
-import org.learn.model.Hero;
-import org.learn.model.Monster;
-import org.learn.model.Spell;
-import org.learn.model.Weapon;
+import org.learn.ability.Ability;
+import org.learn.ability.Skill;
+import org.learn.ability.Spell;
+import org.learn.item.Weapon;
+import org.learn.model.*;
 
 import java.util.List;
 import java.util.Random;
@@ -15,25 +16,58 @@ public class GeneratorForGameplay {
     private final Random random = new Random();
     private final Scanner scanner = new Scanner(System.in);
 
+    private final Weapon defaultWeapon = new Weapon("Руки", 1);
+    private final Skill defaultSkill = new Skill("Удар простой", 1);
+    private final Spell defaultSpell = new Spell("Fire Blast", 1);
+
     public Hero generatePlayer() {
         System.out.println("Введите имя героя:");
         String playerName = scanner.nextLine();
         System.out.println("Имя персонажа: " + playerName);
-        Hero hero = new Hero(playerName, generateSpell());
-        hero.setDamage(faker.random().nextInt(5, 11));
-        hero.setWeapon(new Weapon("Руки", 0));
-        return hero;
+        System.out.println("Выберете клас персонажа:");
+        System.out.println("Маг - 1, Воин - 2.");
+        int checkTypeHero = scanner.nextInt();
+        if (checkTypeHero == 1) {
+            return generateMage(playerName);
+        } else {
+            return generateWarrior(playerName);
+        }
+
     }
 
-    public Monster generateMonster() {
+    private Mage generateMage(String playerName) {
+        return new Mage(playerName,
+                5,
+                defaultWeapon,
+                defaultSpell);
+    }
+
+    private Warrior generateWarrior(String playerName) {
+        return new Warrior(playerName,
+                10,
+                defaultWeapon,
+                defaultSkill);
+    }
+
+
+    private Monster generateMonster() {
         Monster monster = new Monster(faker.witcher().monster(),
-                faker.random().nextInt(20, 101),
+                faker.random().nextInt(50, 101),
                 faker.random().nextInt(5, 11),
                 generateWeapon(),
-                generateSpell(),
-                LIST_OF_ELEMENTS.get(random.nextInt(0, 4)));
+                generateSpell());
         System.out.println(monster);
         return monster;
+    }
+
+    public Room generateRoom() {
+        Room room = new Room(faker.twinPeaks().location(),
+                random.nextInt(1, 11));
+        if (random.nextBoolean()) {
+            room.setMonster(generateMonster());
+        }
+        System.out.println(room);
+        return room;
     }
 
     private final String[] TYPE_OF_WEAPON = new String[4];
@@ -61,10 +95,15 @@ public class GeneratorForGameplay {
 
     private final List<String> LIST_OF_ELEMENTS = List.of("Fire", "Water", "Ground", "Air");
 
+
     public Spell generateSpell() {
         return new Spell(faker.harryPotter().spell(),
-                random.nextInt(10, 16),
-                LIST_OF_ELEMENTS.get(random.nextInt(0, 4)));
+                random.nextInt(5, 11));
+    }
+
+    public Skill generateSkill() {
+        return new Skill(faker.superhero().power(),
+                random.nextInt(5, 11));
     }
 
 }

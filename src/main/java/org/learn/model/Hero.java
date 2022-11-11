@@ -1,18 +1,25 @@
 package org.learn.model;
 
-public class Hero {
+import org.learn.ability.Ability;
+import org.learn.item.Weapon;
+import org.learn.service.HeroAttack;
+
+public abstract class Hero implements HeroAttack {
 
     private String name;
     private int health = 100;
     private int damage;
     private int level = 1;
     private Weapon weapon;
+    private int gold;
+    private int roomComplete =0;
 
-    private Spell spell;
+    private Ability ability;
 
-    public Hero(String name, Spell spell) {
+    public Hero(String name, int damage, Weapon weapon) {
         this.name = name;
-        this.spell = spell;
+        this.damage = damage;
+        this.weapon = weapon;
     }
 
     public String getName() {
@@ -56,24 +63,30 @@ public class Hero {
         this.weapon = weapon;
     }
 
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public int getRoomComplete() {
+        return roomComplete;
+    }
+
+    public void setRoomComplete(int roomComplete) {
+        this.roomComplete = roomComplete;
+    }
+
 
 
     @Override
     public String toString() {
-        return "Игрок: " +
-                "Имя = '" + name + '\'' +
+        return  "Игрок = '" + name +
                 ", Уровень = " + level +
                 ", Здоровье = " + health +
-                ", Урон = " + damage +
-                ", Оружие = " + weapon +
-                ", Магия = " + spell;
-    }
-
-    public Spell getSpell() {
-        return spell;
-    }
-
-    public void setSpell(Spell spell) {
-        this.spell = spell;
+                ", Золота = " + gold +
+                ", Пройдено локаций = " + roomComplete;
     }
 }
