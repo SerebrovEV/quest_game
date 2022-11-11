@@ -9,6 +9,10 @@ public class Weapon {
         this.damage = damage;
     }
 
+    public Weapon() {
+
+    }
+
     public String getName() {
         return name;
     }

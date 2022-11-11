@@ -12,9 +12,7 @@ public abstract class Hero implements HeroAttack {
     private int level = 1;
     private Weapon weapon;
     private int gold;
-    private int roomComplete =0;
-
-    private Ability ability;
+    private int roomComplete = 0;
 
     public Hero(String name, int damage, Weapon weapon) {
         this.name = name;
@@ -79,14 +77,13 @@ public abstract class Hero implements HeroAttack {
         this.roomComplete = roomComplete;
     }
 
-
-
     @Override
     public String toString() {
-        return  "Игрок = '" + name +
+        return "Игрок = '" + name +
                 ", Уровень = " + level +
                 ", Здоровье = " + health +
                 ", Золота = " + gold +
-                ", Пройдено локаций = " + roomComplete;
+                ", Пройдено локаций = " + roomComplete +
+                ", Оружие = " + getWeapon().getName();
     }
 }

@@ -25,14 +25,22 @@ public class ChangeHero {
             hero.setWeapon(weapon);
         }
     }
-    public void choiceAbility(Mage mage) {
+
+    public void choiceAbility(Hero hero) {
+        if (hero.getClass() == Mage.class) {
+            choiceAbilityForMage((Mage) hero);
+        } else {
+            choiceAbilityForWarrior((Warrior) hero);
+        }
+    }
+    private void choiceAbilityForMage(Mage mage) {
         Spell newSpell = generatorForGameplay.generateSpell();
         System.out.println("Поменять умение " + mage.getSpell() + " на " + newSpell + "? ДА - 1, НЕТ - 0.");
         if (scanner.nextInt() == 1) {
             mage.setSpell(newSpell);
         }
     }
-    public void choiceAbility(Warrior warrior) {
+    private void choiceAbilityForWarrior(Warrior warrior) {
         Skill newSkill = generatorForGameplay.generateSkill();
         System.out.println("Поменять умение " + warrior.getSkill() + " на " + newSkill + "? ДА - 1, НЕТ - 0.");
         if (scanner.nextInt() == 1) {

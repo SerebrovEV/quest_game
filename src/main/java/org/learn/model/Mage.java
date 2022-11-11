@@ -8,6 +8,8 @@ public class Mage extends Hero implements HeroAttack {
 
     private Spell spell;
 
+   // private Spell[] listOfSpells;
+
     public Mage(String name, int damage, Weapon weapon, Spell spell) {
         super(name, damage, weapon);
         this.spell = spell;

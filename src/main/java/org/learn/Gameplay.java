@@ -1,6 +1,5 @@
 package org.learn;
 
-import org.learn.model.Mage;
 import org.learn.model.Monster;
 import org.learn.model.Hero;
 import org.learn.model.Room;
@@ -24,7 +23,7 @@ public class Gameplay {
         Hero hero = GENERATOR_FOR_GAMEPLAY.generatePlayer();
         while (true) {
             gameplayWithoutChoice(hero);
-            System.out.println("Продолжить? ДА, НЕТ?");
+            System.out.println("Продолжить? ДА - 1, НЕТ - 0?");
             int answer = SCANNER.nextInt();
             if (answer == 0) break;
         }
@@ -34,7 +33,7 @@ public class Gameplay {
 
     private static void gameplayWithoutChoice(Hero hero) throws InterruptedException {
         System.out.println(hero);
-        Room room = GENERATOR_FOR_GAMEPLAY.generateRoom();
+        Room room = GENERATOR_FOR_GAMEPLAY.generateRoom(hero);
         Monster monster = room.getMonster();
         if (!(monster == null)) {
             sleep(500);
@@ -49,7 +48,7 @@ public class Gameplay {
             System.out.println("Game Over");
             System.exit(0);
         }
-        hero.setGold(room.getGold()+room.getGold());
+        hero.setGold(hero.getGold() + room.getGold());
         hero.setRoomComplete(hero.getRoomComplete() + 1);
     }
 }

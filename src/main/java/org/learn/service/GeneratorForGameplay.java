@@ -1,9 +1,9 @@
 package org.learn.service;
 
 import com.github.javafaker.Faker;
-import org.learn.ability.Ability;
 import org.learn.ability.Skill;
 import org.learn.ability.Spell;
+import org.learn.generator.WeaponGenerator;
 import org.learn.item.Weapon;
 import org.learn.model.*;
 
@@ -15,7 +15,7 @@ public class GeneratorForGameplay {
     private final Faker faker = new Faker();
     private final Random random = new Random();
     private final Scanner scanner = new Scanner(System.in);
-
+    private final WeaponGenerator weaponGenerator = new WeaponGenerator();
     private final Weapon defaultWeapon = new Weapon("Руки", 1);
     private final Skill defaultSkill = new Skill("Удар простой", 1);
     private final Spell defaultSpell = new Spell("Fire Blast", 1);
@@ -50,21 +50,27 @@ public class GeneratorForGameplay {
     }
 
 
-    private Monster generateMonster() {
+    private Monster generateMonster(Hero hero) {
+        Weapon weapon;
+        if (hero.getClass() == Mage.class) {
+            weapon = weaponGenerator.generateMageWeapon();
+        } else {
+            weapon = weaponGenerator.generateMileWeapon();
+        }
         Monster monster = new Monster(faker.witcher().monster(),
                 faker.random().nextInt(50, 101),
                 faker.random().nextInt(5, 11),
-                generateWeapon(),
+                weapon,
                 generateSpell());
         System.out.println(monster);
         return monster;
     }
 
-    public Room generateRoom() {
+    public Room generateRoom(Hero hero) {
         Room room = new Room(faker.twinPeaks().location(),
                 random.nextInt(1, 11));
         if (random.nextBoolean()) {
-            room.setMonster(generateMonster());
+            room.setMonster(generateMonster(hero));
         }
         System.out.println(room);
         return room;
