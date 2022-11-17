@@ -9,15 +9,15 @@ class Scratch {
     public static int[] example = new int[]{1, 2, 1, 44, 10, 2, 15, 8, 7, 9, 11};
     public static String[] example2 = new String[]{"1", "2", "1", "44", "1", "2", "15", "91", "7", "91", "11"};
     private static List<String> strings = new ArrayList<>(of("ab", "cd", "vd", "sd", "we", "gdfr", "dsfsd", "dsd", "ewrwe", "dfs", "rty", "yutir"));
-    static User user1 = new User("a1", 12);
+    static User user1 = new User("a1", 15);
     static User user2 = new User("a2", 13);
-    static User user3 = new User("a1", 14);
+    static User user3 = new User("a1", 13);
     static User user4 = new User("a3", 10);
     static User user5 = new User("a4", 10);
-    static User user6 = new User("a1", 15);
+    static User user6 = new User("a1", 112);
     static User user7 = new User("a3", 11);
     static User user8 = new User("a5", 10);
-    static User user9 = new User("a7", 14);
+    static User user9 = new User("a7", 150);
     static User user10 = new User("a4", 10);
 
 
@@ -37,8 +37,8 @@ class Scratch {
 //        System.out.println(task3(s2));
         //           String s3 = task10(example2);
 //           System.out.println(s3);
-//        List<User> users = List.of(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10);
-//        System.out.println(task13(users));
+        List<User> users = List.of(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10);
+        System.out.println(task13(users));
 //        List<Integer> lists = new ArrayList<>();
 //        for (int i = 0; i <= 100; i++) {
 //            lists.add(i % 5);
@@ -47,7 +47,7 @@ class Scratch {
 //                .distinct()
 //                .toList();
 //        System.out.println(lists);
-        System.out.println(task12(strings));
+ //       System.out.println(task12(strings));
 
     }
 
@@ -178,6 +178,7 @@ class Scratch {
         List<User> users = new ArrayList<>(copyOf(collection));
         users = users.stream()
                 .distinct()
+                .sorted(Comparator.comparing(User::getName).thenComparing(User::getAge))
                 .toList();
         System.out.println(users);
         return users.stream()
