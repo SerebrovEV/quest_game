@@ -1,4 +1,4 @@
-package org.learn.model;
+package org.learn.item;
 
 public class Weapon {
     private String name;
@@ -7,6 +7,10 @@ public class Weapon {
     public Weapon(String name, int damage) {
         this.name = name;
         this.damage = damage;
+    }
+
+    public Weapon() {
+
     }
 
     public String getName() {

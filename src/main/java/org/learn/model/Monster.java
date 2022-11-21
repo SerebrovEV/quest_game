@@ -1,5 +1,8 @@
 package org.learn.model;
 
+import org.learn.ability.Spell;
+import org.learn.item.Weapon;
+
 public class Monster {
 
     private String name;
@@ -9,19 +12,19 @@ public class Monster {
     private int damage;
 
     private Weapon loot;
+    private int gold;
 
     private Spell spell;
 
-    private String immune;
+   // private String immune;
 
-    public Monster(String name, int health, int damage, Weapon loot, Spell spell, String immune) {
+    public Monster(String name, int health, int damage, Weapon loot, Spell spell) {
         this.name = name;
         this.health = health + level*10;
-        this.damage = damage + level*2;
+        this.damage = damage + level*3;
         this.loot = loot;
         this.spell = spell;
-        this.immune = immune;
-        this.level = ++level;
+        ++level;
     }
 
     public String getName() {
@@ -65,18 +68,17 @@ public class Monster {
         this.spell = spell;
     }
 
-    public String getImmune() {
-        return immune;
-    }
-
-    public void setImmune(String immune) {
-        this.immune = immune;
-    }
+//    public String getImmune() {
+//        return immune;
+//    }
+//
+//    public void setImmune(String immune) {
+//        this.immune = immune;
+//    }
 
     @Override
     public String toString() {
-        return "Противник: " +
-                "Имя = '" + name + '\'' +
+        return  "Монстр = '" + name + '\'' +
                 ", Уровень = " + level +
                 ", Здоровье = " + health +
                 ", Урон = " + damage +
